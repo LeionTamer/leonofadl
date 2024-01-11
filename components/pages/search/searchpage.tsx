@@ -1,7 +1,9 @@
-"use client";
+'use client'
+
+import GoogleAutocomplete from '@/components/google/autocomplete'
 
 function SearchPageComponent() {
-  return <>Component Goes Here</>;
+    return <GoogleAutocomplete />
 }
 
-export default SearchPageComponent;
+export default SearchPageComponent
