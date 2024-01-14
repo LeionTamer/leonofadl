@@ -5,12 +5,13 @@ const apiKey = process.env.GOOGLEAPIKEY || ''
 
 export async function GET(req: NextRequest) {
   const searchText = req.nextUrl.searchParams.get('input') || ''
+  const location = req.nextUrl.searchParams.get('location') || '34.921230,0138.599503'
 
   const autocomplete = await gMapClient.placeAutocomplete({
     params: {
       key: apiKey,
       input: searchText,
-      location: '34.921230,0138.599503',
+      location: location,
       radius: 10
     }
   })
