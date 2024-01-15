@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { gMapClient } from "@/lib/google-api";
 
-const apiKey = process.env.GOOGLEAPIKEY || ''
+const apiKey = process.env.GOOGLE_API_KEY || ''
 
 export async function GET(req: NextRequest) {
   const searchText = req.nextUrl.searchParams.get('input') || ''
