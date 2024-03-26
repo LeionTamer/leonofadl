@@ -51,9 +51,9 @@ const BaseMap: FC<IBaseMapProps> = ({
       style={{
         position: 'relative',
         minHeight: '150px',
-        height: height,
-        width: width,
       }}
+      height={height}
+      width={width}
     ></DeckGL>
   )
 }

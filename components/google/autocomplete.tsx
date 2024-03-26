@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from '../ui/command'
-import { FC, useEffect, useState } from 'react'
+import { Dispatch, FC, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   PlaceAutocompleteResponse,
@@ -21,14 +21,14 @@ const url = `${baseURL}/api/google/autocomplete`
 
 interface IGoogleAutocompleteProps {
   location?: string
+  result?: Dispatch<PlaceAutocompleteResult>
 }
 
 const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
   location = '34.921230,0138.599503',
   ...props
 }) => {
-  const [search, setSearch] = useDebouncedState('', 500)
-  const [options, setOptions] = useState<PlaceAutocompleteResult[]>([])
+  const [search, setSearch] = useDebouncedState('', 50)
 
   const searchFn = async (): Promise<PlaceAutocompleteResponse | undefined> => {
     if (search.length >= 3) {
@@ -44,35 +44,35 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
     enabled: search.length >= 3,
   })
 
+  const options = !!searchAPI.data ? searchAPI.data.data.predictions : []
+
   const PlacesList = () => {
-    if (options.length <= 0) return null
+    if (options.length <= 1) return null
 
     return (
       <CommandList>
         <CommandGroup heading="List of places">
           {options.map((entry) => (
-            <CommandItem key={entry.place_id}>{entry.description}</CommandItem>
+            <CommandItem
+              key={entry.place_id}
+              value={entry.description}
+              onSelect={() => {
+                console.table(entry)
+                setSearch(entry.description)
+              }}
+            >
+              {entry.description}
+            </CommandItem>
           ))}
         </CommandGroup>
       </CommandList>
     )
   }
 
-  useEffect(() => {
-    if (search.length <= 2) setOptions([])
-    if (search.length >= 3) searchAPI.refetch()
-  }, [search])
-
-  useEffect(() => {
-    if (!!searchAPI.data) {
-      console.table(searchAPI.data.data.predictions)
-      setOptions([...searchAPI.data.data.predictions])
-    }
-  }, [searchAPI.data])
-
   return (
     <Command className="rounded-lg border shadow-md">
       <CommandInput
+        value={search}
         placeholder="Search for a location"
         onChangeCapture={(event) => setSearch(event.currentTarget.value)}
       />
