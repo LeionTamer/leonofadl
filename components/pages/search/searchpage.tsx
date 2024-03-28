@@ -1,5 +1,6 @@
 'use client'
 
+import { DeckContextProvider } from '@/components/deckgl/_deckcontext'
 import BaseMap from '@/components/deckgl/basemap'
 import GoogleAutocomplete from '@/components/google/autocomplete'
 import { BitmapLayer, GeoJsonLayer } from 'deck.gl/typed'
@@ -29,10 +30,10 @@ function SearchPageComponent() {
     getElevation: 30,
   })
   return (
-    <>
+    <DeckContextProvider>
       <GoogleAutocomplete />
       <BaseMap layers={[bitmapLayer, geoLayer]} />
-    </>
+    </DeckContextProvider>
   )
 }
 

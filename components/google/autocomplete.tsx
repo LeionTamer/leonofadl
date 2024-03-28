@@ -15,6 +15,7 @@ import {
   PlaceAutocompleteResult,
 } from '@googlemaps/google-maps-services-js'
 import axios from 'axios'
+import { useDeckStateContext } from '../deckgl/_deckcontext'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ''
 const url = `${baseURL}/api/google/autocomplete`
@@ -29,6 +30,7 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useDebouncedState('', 50)
+  const { state, dispatch } = useDeckStateContext()
 
   const searchFn = async (): Promise<PlaceAutocompleteResponse | undefined> => {
     if (search.length >= 3) {
@@ -44,6 +46,16 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
     enabled: search.length >= 3,
   })
 
+  function setViewState() {
+    dispatch({
+      viewState: {
+        ...state.viewState,
+        longitude: 122.41669,
+        latitude: 50,
+      },
+    })
+  }
+
   const options = !!searchAPI.data ? searchAPI.data.data.predictions : []
 
   const PlacesList = () => {
@@ -57,8 +69,8 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
               key={entry.place_id}
               value={entry.description}
               onSelect={() => {
-                console.table(entry)
                 setSearch(entry.description)
+                setViewState()
               }}
             >
               {entry.description}

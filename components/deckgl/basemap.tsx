@@ -2,6 +2,7 @@
 
 import { FC, useState } from 'react'
 import { DeckGL, TileLayer, BitmapLayer, Position, Layer } from 'deck.gl/typed'
+import { useDeckStateContext } from './_deckcontext'
 
 interface IBaseMapProps {
   height?: string
@@ -23,6 +24,7 @@ const BaseMap: FC<IBaseMapProps> = ({
   layers = [],
 }) => {
   const [initialViewState, setInitialViewState] = useState(INITIAL_VIEW_STATE)
+  const { state } = useDeckStateContext()
   const tileLayer = new TileLayer({
     data: 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
     minZoom: 0,
@@ -44,9 +46,11 @@ const BaseMap: FC<IBaseMapProps> = ({
       })
     },
   })
+
+  if (!state) return null
   return (
     <DeckGL
-      initialViewState={initialViewState}
+      initialViewState={{ ...state.viewState }}
       layers={[tileLayer, ...layers]}
       controller={true}
       style={{
