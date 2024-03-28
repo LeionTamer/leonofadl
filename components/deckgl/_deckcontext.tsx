@@ -17,6 +17,7 @@ export const initializeState: DeckStateType = {
     zoom: 13,
     pitch: 0,
     bearing: 0,
+    minZoom: 8,
   },
 }
 

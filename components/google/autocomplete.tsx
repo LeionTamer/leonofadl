@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query'
 import {
   PlaceAutocompleteResponse,
   PlaceAutocompleteResult,
+  PlaceData,
 } from '@googlemaps/google-maps-services-js'
 import axios from 'axios'
 import { useDeckStateContext } from '../deckgl/_deckcontext'
@@ -46,12 +47,16 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
     enabled: search.length >= 3,
   })
 
-  function setViewState() {
+  async function setViewState(placeId: string) {
+    const response = await fetch(`/api/google/place?placeId=${placeId}`)
+    const data = (await response.json()) as Partial<PlaceData>
+
     dispatch({
       viewState: {
         ...state.viewState,
-        longitude: 122.41669,
-        latitude: 50,
+        longitude: data.geometry?.location.lng,
+        latitude: data.geometry?.location.lat,
+        zoom: 16,
       },
     })
   }
@@ -70,7 +75,7 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
               value={entry.description}
               onSelect={() => {
                 setSearch(entry.description)
-                setViewState()
+                setViewState(entry.place_id)
               }}
             >
               {entry.description}
