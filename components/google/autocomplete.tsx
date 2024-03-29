@@ -59,6 +59,10 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
         zoom: 16,
       },
     })
+
+    dispatch({
+      googlePlaceDetails: data,
+    })
   }
 
   const options = !!searchAPI.data ? searchAPI.data.data.predictions : []
