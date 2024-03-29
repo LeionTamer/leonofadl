@@ -1,3 +1,4 @@
+import { PlaceData } from '@googlemaps/google-maps-services-js'
 import {
   Dispatch,
   ReactNode,
@@ -8,6 +9,7 @@ import {
 
 export type DeckStateType = {
   viewState: any
+  googlePlaceDetails?: Partial<PlaceData>
 }
 
 export const initializeState: DeckStateType = {
