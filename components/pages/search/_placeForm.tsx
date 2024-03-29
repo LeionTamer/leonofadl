@@ -42,6 +42,7 @@ export const PlaceForm = () => {
         state.googlePlaceDetails.geometry!.location.lng
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.googlePlaceDetails])
 
   return (
