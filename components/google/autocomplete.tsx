@@ -1,6 +1,6 @@
 'use client'
 
-import { useDebouncedState } from '@mantine/hooks'
+import { useDebouncedState, useDebouncedValue } from '@mantine/hooks'
 import {
   Command,
   CommandGroup,
@@ -27,16 +27,17 @@ interface IGoogleAutocompleteProps {
 }
 
 const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
-  location = '34.921230,0138.599503',
+  location = '138.599503,-34.92123',
   ...props
 }) => {
-  const [search, setSearch] = useDebouncedState('', 50)
+  const [search, setSearch] = useState('')
+  const [searchPlace] = useDebouncedValue(search, 60)
   const { state, dispatch } = useDeckStateContext()
 
   const searchFn = async (): Promise<PlaceAutocompleteResponse | undefined> => {
     if (search.length >= 3) {
       var newURL = new URL(url)
-      newURL.searchParams.append('input', search)
+      newURL.searchParams.append('input', searchPlace)
       newURL.searchParams.append('location', location)
       return axios.get(newURL.toString()).then((response) => response.data)
     }
@@ -44,7 +45,7 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
   const searchAPI = useQuery({
     queryKey: ['autocomplete'],
     queryFn: async () => searchFn(),
-    enabled: search.length >= 3,
+    enabled: searchPlace.length >= 3,
   })
 
   async function setViewState(placeId: string) {
