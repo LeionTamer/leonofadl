@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useDeckStateContext } from '@/components/deckgl/_deckcontext'
+import { useEffect } from 'react'
 
 export const PlaceForm = () => {
   const form = useForm<PlaceFormType>({
@@ -22,9 +24,25 @@ export const PlaceForm = () => {
     },
   })
 
+  const { state } = useDeckStateContext()
+
   function onSubmit(values: PlaceFormType) {
     console.table(values)
   }
+
+  useEffect(() => {
+    if (!!state.googlePlaceDetails) {
+      console.table(state.googlePlaceDetails)
+      form.setValue('placeId', state.googlePlaceDetails.place_id!)
+      form.setValue('name', state.googlePlaceDetails.name!)
+      form.setValue('address', state.googlePlaceDetails.formatted_address!)
+      form.setValue('latitude', state.googlePlaceDetails.geometry!.location.lat)
+      form.setValue(
+        'longtitude',
+        state.googlePlaceDetails.geometry!.location.lng
+      )
+    }
+  }, [state.googlePlaceDetails])
 
   return (
     <Form {...form}>
@@ -68,7 +86,7 @@ export const PlaceForm = () => {
                     placeholder="Latitude"
                     type="number"
                     {...field}
-                    // className="flex-grow-1 min-w-full"
+                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
                   />
                 </FormControl>
               </FormItem>
@@ -84,18 +102,14 @@ export const PlaceForm = () => {
                   <Input
                     placeholder="Longtitude"
                     {...field}
-                    // className="flex-grow-1"
+                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
         </div>
-        <Button
-          type="submit"
-          className="mt-5"
-          disabled={!form.formState.isDirty}
-        >
+        <Button type="submit" className="mt-5">
           Submit
         </Button>
       </form>
