@@ -10,7 +10,7 @@ export const AuthButton = () => {
     return <Button onClick={() => signOut()}>Sign Out</Button>
   }
 
-  return <>Unknown User</>
+  return null
 }
 
 export default AuthButton
