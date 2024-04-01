@@ -1,9 +1,5 @@
-export const AdminPage = () => {
-  return (
-    <div className="max-w-7xl mx-auto">
-      <h1>Admin Page</h1>
-    </div>
-  )
+function AdminPage() {
+  return <h1>AdminPage</h1>
 }
 
 export default AdminPage
