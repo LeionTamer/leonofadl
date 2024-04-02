@@ -6,9 +6,9 @@ import {
 } from '@/components/deckgl/_deckcontext'
 import BaseMap from '@/components/deckgl/basemap'
 import GoogleAutocomplete from '@/components/google/autocomplete'
-import { BitmapLayer, GeoJsonLayer, IconLayer } from 'deck.gl/typed'
+import { GeoJsonLayer, IconLayer } from 'deck.gl/typed'
 import { PlaceForm } from './_placeForm'
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function SearchPageComponent() {
   const [pinData, setPinData] = useState<
@@ -24,15 +24,7 @@ function SearchPageComponent() {
 
   const pinLayer = new IconLayer({
     id: 'icon-layer',
-    data: [
-      !!pinData ? pinData : {},
-      // {
-      //   name: 'Colma (COLM)',
-      //   address: '365 D Street, Colma CA 94014',
-      //   exits: 4214,
-      //   coordinates: [-122.466233, 37.684638],
-      // },
-    ],
+    data: [!!pinData ? pinData : {}],
     pickable: true,
     // iconAtlas and iconMapping are required
     // getIcon: return a string
@@ -60,7 +52,6 @@ function SearchPageComponent() {
     lineWidthScale: 20,
     lineWidthMinPixels: 2,
     getFillColor: [160, 160, 180, 200],
-    // getLineColor: (d) => colorToRGBArray(d.properties.color),
     getPointRadius: 100,
     getLineWidth: 1,
     getElevation: 30,
@@ -81,7 +72,7 @@ function SearchPageComponent() {
   }, [state.googlePlaceDetails])
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <>
       <div className="mt-5 mx-10">
         <GoogleAutocomplete />
       </div>
@@ -89,7 +80,7 @@ function SearchPageComponent() {
         <BaseMap layers={[geoLayer, pinLayer]} height="300px" />
       </div>
       <PlaceForm />
-    </div>
+    </>
   )
 }
 
