@@ -7,7 +7,10 @@ async function AdminPage() {
   if (!session) {
     redirect('/api/auth/signin')
   } else {
-    console.table(session)
+    // console.table(session)
+    if (session.user.email !== 'leoncarbonell@gmail.com') {
+      redirect('/')
+    }
   }
 
   return <h1>AdminPage</h1>
