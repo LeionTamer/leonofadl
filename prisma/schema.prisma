@@ -11,7 +11,8 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 // Project Schema
@@ -62,4 +63,14 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model GooglePlaces {
+  placeId     String @id
+  name        String
+  address     String
+  latitude    Float
+  longtitue   Float
+  googleURL   String
+  website     String?
 }
