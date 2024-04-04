@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useDeckStateContext } from '@/components/deckgl/_deckcontext'
 import { useEffect } from 'react'
+import { createPlaceAction } from '@/app/admin/places/actions'
 
 export const PlaceForm = () => {
   const form = useForm<PlaceFormType>({
@@ -21,6 +22,9 @@ export const PlaceForm = () => {
       address: '',
       latitude: -34.92123,
       longtitude: 138.599503,
+      placeId: '',
+      googleUrl: '',
+      website: '',
     },
   })
 
@@ -32,7 +36,6 @@ export const PlaceForm = () => {
 
   useEffect(() => {
     if (!!state.googlePlaceDetails) {
-      console.table(state.googlePlaceDetails)
       form.setValue('placeId', state.googlePlaceDetails.place_id!)
       form.setValue('name', state.googlePlaceDetails.name!)
       form.setValue('address', state.googlePlaceDetails.formatted_address!)
@@ -41,6 +44,8 @@ export const PlaceForm = () => {
         'longtitude',
         state.googlePlaceDetails.geometry!.location.lng
       )
+      form.setValue('googleUrl', state.googlePlaceDetails.url!)
+      form.setValue('website', state.googlePlaceDetails.website ?? '')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.googlePlaceDetails])
@@ -88,6 +93,7 @@ export const PlaceForm = () => {
                     type="number"
                     {...field}
                     onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                    disabled
                   />
                 </FormControl>
               </FormItem>
@@ -104,12 +110,37 @@ export const PlaceForm = () => {
                     placeholder="Longtitude"
                     {...field}
                     onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                    disabled
                   />
                 </FormControl>
               </FormItem>
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="googleUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Google URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Google URL" {...field} className="mt-10" />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="website"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Website</FormLabel>
+              <FormControl>
+                <Input placeholder="Website" {...field} className="mt-10" />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button type="submit" className="mt-5">
           Submit
         </Button>

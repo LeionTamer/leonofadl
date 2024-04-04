@@ -59,7 +59,6 @@ function SearchPageComponent() {
 
   useEffect(() => {
     if (!!state.googlePlaceDetails) {
-      console.log('call me!')
       setPinData({
         name: state.googlePlaceDetails.name!,
         address: state.googlePlaceDetails.formatted_address!,
