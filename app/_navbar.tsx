@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav className="border-2 p-2">
       <div className="flex justify-between max-w-7xl mx-auto">
         <div>
           <Link href="/" legacyBehavior passHref>

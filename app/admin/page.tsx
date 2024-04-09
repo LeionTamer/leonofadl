@@ -1,8 +1,9 @@
+import { authOptions } from '@/helpers/auth'
 import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
 
 async function AdminPage() {
-  const session = await getServerSession()
+  const session = await getServerSession(authOptions)
 
   if (!session) {
     redirect('/api/auth/signin')
