@@ -7,10 +7,9 @@ import {
 import BaseMap from '@/components/deckgl/basemap'
 import GoogleAutocomplete from '@/components/google/autocomplete'
 import { GeoJsonLayer, IconLayer } from 'deck.gl/typed'
-import { PlaceForm } from './_placeForm'
 import { ReactNode, useEffect, useState } from 'react'
 
-function SearchPageComponent({ formComponent }: { formComponent: ReactNode }) {
+const SearchAndMap = () => {
   const [pinData, setPinData] = useState<
     | undefined
     | {
@@ -78,21 +77,18 @@ function SearchPageComponent({ formComponent }: { formComponent: ReactNode }) {
       <div className="mt-5 mx-10">
         <BaseMap layers={[geoLayer, pinLayer]} height="300px" />
       </div>
-      {formComponent}
     </>
   )
 }
 
-const SearchPageWithProvider = ({
-  formComponent,
-}: {
-  formComponent: ReactNode
-}) => {
+const AutoCompleteMap = ({ children }: { children: ReactNode }) => {
   return (
     <DeckContextProvider>
-      <SearchPageComponent formComponent={formComponent} />
+      <SearchAndMap />
+
+      {children}
     </DeckContextProvider>
   )
 }
 
-export default SearchPageWithProvider
+export default AutoCompleteMap

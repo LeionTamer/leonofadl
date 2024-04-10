@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth'
-import PlaceForm from './_placeForm'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/helpers/auth'
+import AutoCompleteMap from '@/components/google/autocompleteMap'
 
 export default async function Restaurants() {
   const session = await getServerSession(authOptions)
@@ -14,9 +14,5 @@ export default async function Restaurants() {
     }
   }
 
-  return (
-    <>
-      <PlaceForm />
-    </>
-  )
+  return <>List of places goes here</>
 }
