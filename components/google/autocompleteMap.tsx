@@ -71,10 +71,10 @@ const SearchAndMap = () => {
 
   return (
     <>
-      <div className="mt-5 mx-10">
+      <div className="mt-5">
         <GoogleAutocomplete />
       </div>
-      <div className="mt-5 mx-10">
+      <div className="mt-5">
         <BaseMap layers={[geoLayer, pinLayer]} height="300px" />
       </div>
     </>

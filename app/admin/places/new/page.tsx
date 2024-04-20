@@ -1,5 +1,12 @@
-import PlaceForm from '../_components/placeForm'
+import AutoCompleteMap from '@/components/google/autocompleteMap'
+import PlaceForm from '../_components/PlaceForm'
 
 export default async function NewPlacePage() {
-  return <PlaceForm />
+  return (
+    <>
+      <AutoCompleteMap>
+        <PlaceForm />
+      </AutoCompleteMap>
+    </>
+  )
 }
