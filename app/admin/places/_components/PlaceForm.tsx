@@ -9,39 +9,30 @@ import {
   FormLabel,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { PlaceFormType } from '../../_actions/places'
 import { Input } from '@/components/ui/input'
 import { useDeckStateContext } from '@/components/deckgl/_deckcontext'
 import { useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { addPlace } from '../../_actions/places'
+import { useFormState } from 'react-dom'
+import { PlaceFormType } from '../../_types/place'
 
-const PlaceForm = () => {
-  const form = useForm<PlaceFormType>()
-
-  const { state } = useDeckStateContext()
+const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
+  const { state: deckState } = useDeckStateContext()
+  const [state, action] = useFormState(addPlace, null)
 
   useEffect(() => {
-    if (state.googlePlaceDetails) {
-      console.table(state.googlePlaceDetails)
+    if (deckState.googlePlaceDetails) {
+      console.table(deckState.googlePlaceDetails)
     }
-  }, [state.googlePlaceDetails])
+  }, [deckState.googlePlaceDetails])
 
   return (
-    // <AutoCompleteMap>
-    <Form {...form}>
-      <FormField
-        control={form.control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Name</FormLabel>
-            <FormControl>
-              <Input placeholder="Place Name" {...field} />
-            </FormControl>
-          </FormItem>
-        )}
-      />
-    </Form>
-    // </AutoCompleteMap>
+    <div className="mt-10">
+      <form action={action}>
+        <Button type="submit">Submit</Button>
+      </form>
+    </div>
   )
 }
 
