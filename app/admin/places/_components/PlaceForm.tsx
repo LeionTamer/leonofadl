@@ -25,7 +25,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
 
   const form = useForm<PlaceFormType>({
     resolver: zodResolver(placeFormSchema),
-    defaultValues: {
+    defaultValues: place || {
       placeId: '',
       name: '',
       address: '',
@@ -61,7 +61,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
               <FormItem>
                 <FormLabel>Google Place ID</FormLabel>
                 <FormControl>
-                  <Input placeholder="Google Place ID" {...field} disabled />
+                  <Input placeholder="Google Place ID" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -101,12 +101,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
                 <FormItem className="w-[50%]">
                   <FormLabel>Lat</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="latitude"
-                      {...field}
-                      type="number"
-                      disabled
-                    />
+                    <Input placeholder="latitude" {...field} type="number" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,12 +114,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
                 <FormItem className="w-[50%]">
                   <FormLabel>Lon</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="longtitude"
-                      {...field}
-                      type="number"
-                      disabled
-                    />
+                    <Input placeholder="longtitude" {...field} type="number" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
