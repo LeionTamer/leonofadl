@@ -29,9 +29,10 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
       placeId: '',
       name: '',
       address: '',
-      googleUrl: '',
+      googleURL: '',
       latitude: '' as unknown as number,
-      longtitude: '' as unknown as number,
+      longitude: '' as unknown as number,
+      website: '',
     },
   })
 
@@ -44,9 +45,9 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
       form.setValue('name', details.name!)
       form.setValue('address', details.formatted_address!)
       form.setValue('latitude', details.geometry!.location.lat)
-      form.setValue('longtitude', details.geometry!.location.lng)
+      form.setValue('longitude', details.geometry!.location.lng)
       form.setValue('placeId', details.place_id!)
-      form.setValue('googleUrl', details.url || '')
+      form.setValue('googleURL', details.url || '')
     }
   }, [deckState.googlePlaceDetails])
 
@@ -109,12 +110,12 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
             />
             <FormField
               control={form.control}
-              name="longtitude"
+              name="longitude"
               render={({ field }) => (
                 <FormItem className="w-[50%]">
                   <FormLabel>Lon</FormLabel>
                   <FormControl>
-                    <Input placeholder="longtitude" {...field} type="number" />
+                    <Input placeholder="longitude" {...field} type="number" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +124,20 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
           </div>
           <FormField
             control={form.control}
-            name="googleUrl"
+            name="website"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Website</FormLabel>
+                <FormControl>
+                  <Input placeholder="Website" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="googleURL"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Google URL</FormLabel>
