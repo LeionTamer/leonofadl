@@ -70,7 +70,7 @@ model GooglePlaces {
   name        String
   address     String
   latitude    Float
-  longtitue   Float
+  longtitude   Float
   googleURL   String
   website     String?
 }

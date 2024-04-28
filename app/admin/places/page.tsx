@@ -1,10 +1,19 @@
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/helpers/auth'
-import AutoCompleteMap from '@/components/google/autocompleteMap'
+import db from '@/lib/prisma'
+
+async function getPlaceList() {
+  const data = await db?.googlePlaces.findMany()
+
+  return {
+    data,
+  }
+}
 
 export default async function Restaurants() {
   const session = await getServerSession(authOptions)
+  const data = await getPlaceList()
 
   if (!session) {
     redirect('/api/auth/signin')
@@ -14,5 +23,5 @@ export default async function Restaurants() {
     }
   }
 
-  return <>List of places goes here</>
+  return <>{JSON.stringify(data)}</>
 }
