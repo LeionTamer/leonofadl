@@ -69,8 +69,8 @@ model GooglePlaces {
   placeId     String @id
   name        String
   address     String
-  latitude    Float
-  longtitude   Float
+  latitude    Float?
+  longtitude   Float?
   googleURL   String
   website     String?
 }
