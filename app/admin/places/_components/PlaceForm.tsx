@@ -49,7 +49,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
       form.setValue('placeId', details.place_id!)
       form.setValue('googleURL', details.url || '')
     }
-  }, [deckState.googlePlaceDetails])
+  }, [deckState.googlePlaceDetails, form])
 
   return (
     <div className="mt-10">
