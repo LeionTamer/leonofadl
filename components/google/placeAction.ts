@@ -14,3 +14,14 @@ export async function placeAutoComplete(searchText: string) {
 
   return { data: autocomplete.data }
 }
+
+export async function getPlaceDetails(placeId: string) {
+  const response = await gMapClient.placeDetails({
+    params: {
+      key: apiKey,
+      place_id: placeId,
+    },
+  })
+
+  return { data: response.data.result }
+}

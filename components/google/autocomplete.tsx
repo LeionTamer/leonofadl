@@ -13,9 +13,8 @@ import {
   PlaceAutocompleteResult,
   PlaceData,
 } from '@googlemaps/google-maps-services-js'
-import axios from 'axios'
 import { useDeckStateContext } from '../deckgl/_deckcontext'
-import { placeAutoComplete } from './placeAction'
+import { getPlaceDetails, placeAutoComplete } from './placeAction'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ''
 
@@ -46,20 +45,23 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
   }, [searchPlace])
 
   async function setViewState(placeId: string) {
-    const response = await fetch(`/api/google/place?placeId=${placeId}`)
-    const data = (await response.json()) as Partial<PlaceData>
+    startTransition(() => {
+      getPlaceDetails(placeId).then((resp) => {
+        const { data } = resp as { data: Partial<PlaceData> }
 
-    dispatch({
-      viewState: {
-        ...state.viewState,
-        longitude: data.geometry?.location.lng,
-        latitude: data.geometry?.location.lat,
-        zoom: 16,
-      },
-    })
+        dispatch({
+          viewState: {
+            ...state.viewState,
+            longitude: data.geometry?.location.lng,
+            latitude: data.geometry?.location.lat,
+            zoom: 16,
+          },
+        })
 
-    dispatch({
-      googlePlaceDetails: data,
+        dispatch({
+          googlePlaceDetails: data,
+        })
+      })
     })
   }
 
