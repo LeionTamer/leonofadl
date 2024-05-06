@@ -52,7 +52,7 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
         dispatch({
           viewState: {
             ...state.viewState,
-            longitude: data.geometry?.location.lng,
+            longtitude: data.geometry?.location.lng,
             latitude: data.geometry?.location.lat,
             zoom: 16,
           },
