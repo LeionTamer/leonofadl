@@ -8,17 +8,15 @@ import {
   CommandItem,
   CommandList,
 } from '../ui/command'
-import { Dispatch, FC, useEffect, useState } from 'react'
+import { Dispatch, FC, startTransition, useEffect, useState } from 'react'
 import {
-  PlaceAutocompleteResponse,
   PlaceAutocompleteResult,
   PlaceData,
 } from '@googlemaps/google-maps-services-js'
-import axios from 'axios'
 import { useDeckStateContext } from '../deckgl/_deckcontext'
+import { getPlaceDetails, placeAutoComplete } from './placeAction'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ''
-const url = `${baseURL}/api/google/autocomplete`
 
 interface IGoogleAutocompleteProps {
   location?: string
@@ -30,45 +28,40 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useState('')
-  const [searchPlace] = useDebouncedValue(search, 60)
+  const [searchPlace] = useDebouncedValue(search, 500)
   const { state, dispatch } = useDeckStateContext()
   const [autoOptions, setAutoOption] = useState<PlaceAutocompleteResult[]>([])
 
-  const searchFn = async (): Promise<PlaceAutocompleteResponse | undefined> => {
-    if (search.length >= 3) {
-      var newURL = new URL(url)
-      newURL.searchParams.append('input', searchPlace)
-      newURL.searchParams.append('location', location)
-      return axios.get(newURL.toString()).then((response) => response.data)
-    }
-  }
-
   useEffect(() => {
-    if (search.length < 3) setAutoOption([])
+    if (searchPlace.length < 3) setAutoOption([])
     else {
-      searchFn().then(async (res) => {
-        const data = await res?.data
-        setAutoOption(data ? data.predictions : [])
+      startTransition(() => {
+        placeAutoComplete(searchPlace).then((resp) =>
+          setAutoOption(resp.data.predictions)
+        )
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search])
+  }, [searchPlace])
 
   async function setViewState(placeId: string) {
-    const response = await fetch(`/api/google/place?placeId=${placeId}`)
-    const data = (await response.json()) as Partial<PlaceData>
+    startTransition(() => {
+      getPlaceDetails(placeId).then((resp) => {
+        const { data } = resp as { data: Partial<PlaceData> }
 
-    dispatch({
-      viewState: {
-        ...state.viewState,
-        longitude: data.geometry?.location.lng,
-        latitude: data.geometry?.location.lat,
-        zoom: 16,
-      },
-    })
+        dispatch({
+          viewState: {
+            ...state.viewState,
+            longtitude: data.geometry?.location.lng,
+            latitude: data.geometry?.location.lat,
+            zoom: 16,
+          },
+        })
 
-    dispatch({
-      googlePlaceDetails: data,
+        dispatch({
+          googlePlaceDetails: data,
+        })
+      })
     })
   }
 

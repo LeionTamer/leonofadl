@@ -31,7 +31,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
       address: '',
       googleURL: '',
       latitude: '' as unknown as number,
-      longitude: '' as unknown as number,
+      longtitude: '' as unknown as number,
       website: '',
     },
   })
@@ -45,7 +45,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
       form.setValue('name', details.name!)
       form.setValue('address', details.formatted_address!)
       form.setValue('latitude', details.geometry!.location.lat)
-      form.setValue('longitude', details.geometry!.location.lng)
+      form.setValue('longtitude', details.geometry!.location.lng)
       form.setValue('placeId', details.place_id!)
       form.setValue('googleURL', details.url || '')
     }
@@ -110,7 +110,7 @@ const PlaceForm = ({ place }: { place?: PlaceFormType }) => {
             />
             <FormField
               control={form.control}
-              name="longitude"
+              name="longtitude"
               render={({ field }) => (
                 <FormItem className="w-[50%]">
                   <FormLabel>Lon</FormLabel>
