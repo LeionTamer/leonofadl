@@ -8,19 +8,19 @@ type SectionRecord = Record<string, SectionInfoType[]>
 const menu: SectionRecord = {
   entree: [
     {
-      title: 'Multiple language support',
+      title: 'Polyglot - Two Ways',
       description:
         'I can say the word "cat" in three different languages. I can also code in C and Ruby, but I mostly work with JavaScript/TypeScript.',
     },
     {
-      title: 'Varied Experience',
+      title: 'Skill Tapas',
       description:
         'I started off as a firmware developer, moved to Australia and became a tester, then a QA engineer. Now, I am a full stack developer.',
     },
   ],
   main: [
     {
-      title: 'Software Builder',
+      title: 'Proof Of Concept Creator',
       description:
         'If you have a concept or idea, I can build a website using NextJS!',
     },
@@ -30,7 +30,7 @@ const menu: SectionRecord = {
         'All I need is GeoJSON data, and we can put things on a map. We can do it with DeckGL and Leaflet.',
     },
     {
-      title: 'AI demo maker',
+      title: 'AI Assisted Developer',
       description:
         'With OpenAI, I have created a social media content editor. Feel free to ask me more about it.',
     },
@@ -42,9 +42,9 @@ const menu: SectionRecord = {
         'After exploring in Adelaide, I can recommend some pretty good places to eat for lunch and dinner.',
     },
     {
-      title: 'social butterly',
+      title: 'Social Butterfly',
       description:
-        'I have organised a few parties, pub crawls, and wine tours.',
+        'I have organised a few parties, pub crawls, and wine tours. And a bit of improvising too.',
     },
   ],
 }
