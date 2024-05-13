@@ -62,7 +62,7 @@ function DeveloperProfile() {
       className={`my-auto text-center text-[#8f250c] ${handwritten.className}`}
     >
       <div className={`text-5xl font-bold `}>About Me</div>
-      <div className="flex flex-col gap-10 mt-10">
+      <div className="flex flex-col gap-10 mt-5">
         {Object.entries(menu).map(([section, items]) => (
           <div key={section} className="text-4xl font-bold">
             {section}
