@@ -1,3 +1,10 @@
+import { Petit_Formal_Script } from 'next/font/google'
+
+const handwritten = Petit_Formal_Script({
+  weight: '400',
+  subsets: ['latin'],
+})
+
 type SectionInfoType = {
   title: string
   description: string
@@ -51,8 +58,10 @@ const menu: SectionRecord = {
 
 function DeveloperProfile() {
   return (
-    <div className="my-auto text-center">
-      <div className="text-5xl font-bold">About Me</div>
+    <div
+      className={`my-auto text-center text-[#8f250c] ${handwritten.className}`}
+    >
+      <div className={`text-5xl font-bold `}>About Me</div>
       <div className="flex flex-col gap-10 mt-10">
         {Object.entries(menu).map(([section, items]) => (
           <div key={section} className="text-4xl font-bold">
