@@ -1,9 +1,11 @@
-import { Petit_Formal_Script } from 'next/font/google'
+import { Petit_Formal_Script, Biryani } from 'next/font/google'
 
 const handwritten = Petit_Formal_Script({
   weight: '400',
   subsets: ['latin'],
 })
+
+const biryani = Biryani({ weight: '400', subsets: ['latin'] })
 
 type SectionInfoType = {
   title: string
@@ -17,7 +19,7 @@ const menu: SectionRecord = {
     {
       title: 'Polyglot - Two Ways',
       description:
-        'I can say the word "cat" in three different languages. I can also code in C and Ruby, but I mostly work with JavaScript/TypeScript.',
+        'I can say the word "dinner" in three different languages. I can also code in C and Ruby, but I mostly work with JavaScript/TypeScript.',
     },
     {
       title: 'Skill Tapas',
@@ -44,12 +46,12 @@ const menu: SectionRecord = {
   ],
   dessert: [
     {
-      title: 'Foodie',
+      title: 'Gourmet Explorer',
       description:
         'After exploring in Adelaide, I can recommend some pretty good places to eat for lunch and dinner.',
     },
     {
-      title: 'Social Butterfly',
+      title: 'Butterflied Socialite',
       description:
         'I have organised a few parties, pub crawls, and wine tours. And a bit of improvising too.',
     },
@@ -58,19 +60,28 @@ const menu: SectionRecord = {
 
 function DeveloperProfile() {
   return (
-    <div
-      className={`my-auto text-center text-[#8f250c] ${handwritten.className}`}
-    >
-      <div className={`text-5xl font-bold `}>About Me</div>
-      <div className="flex flex-col gap-10 mt-5">
+    <div className={`my-2 md:my-10 text-center text-[#8f250c] `}>
+      <div className={`text-5xl font-bold mb-10 ${handwritten.className}`}>
+        A Taste Of Leon
+      </div>
+      <div className={`flex flex-col gap-10 mt-5 `}>
         {Object.entries(menu).map(([section, items]) => (
-          <div key={section} className="text-4xl font-bold">
-            {section}
-            <div className="mt-3 flex flex-col gap-5">
+          <div
+            key={section}
+            className={`text-4xl font-bold ${biryani.className}`}
+          >
+            {section === 'entree' ? '' : '---'}
+            <div className={`mt-5 flex flex-col gap-5`}>
               {items.map((item) => (
-                <div key={item.title}>
-                  <div className="text-2xl font-semibold">{item.title}</div>
-                  <div className="text-base mt-1">{item.description}</div>
+                <div key={item.title} className="mt-3">
+                  <div
+                    className={`text-2xl font-semibold ${biryani.className}`}
+                  >
+                    {item.title}
+                  </div>
+                  <div className={`text-base mt-1 ${biryani.className}`}>
+                    {item.description}
+                  </div>
                 </div>
               ))}
             </div>

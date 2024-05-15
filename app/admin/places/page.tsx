@@ -1,7 +1,5 @@
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
-import { authOptions } from '@/helpers/auth'
 import db from '@/lib/prisma'
+import { adminAuth } from '../_actions/serverAuth'
 
 async function getPlaceList() {
   const data = await db?.googlePlaces.findMany()
@@ -12,16 +10,10 @@ async function getPlaceList() {
 }
 
 export default async function Restaurants() {
-  const session = await getServerSession(authOptions)
-  const data = await getPlaceList()
+  const isAdmin = await adminAuth()
 
-  if (!session) {
-    redirect('/api/auth/signin')
-  } else {
-    if (session.user.email !== 'leoncarbonell@gmail.com') {
-      redirect('/')
-    }
-  }
+  if (!isAdmin) return <>Unauthorised</>
+  const data = await getPlaceList()
 
   return <>{JSON.stringify(data)}</>
 }
