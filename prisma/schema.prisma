@@ -74,3 +74,13 @@ model GooglePlaces {
   googleURL   String
   website     String?
 }
+
+model Restaurant {
+  id            String    @id @default(cuid())
+  name        String
+  address     String
+  latitude    Float
+  longtitude   Float
+  googleURL   String
+  website     String?
+}
