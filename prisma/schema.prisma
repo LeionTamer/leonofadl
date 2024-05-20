@@ -82,5 +82,6 @@ model Restaurant {
   latitude    Float
   longtitude   Float
   googleURL   String
-  website     String?
+  website     String
+  leonNotes   String
 }

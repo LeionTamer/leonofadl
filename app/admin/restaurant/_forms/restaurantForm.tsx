@@ -17,7 +17,7 @@ import { useEffect } from 'react'
 import { useDeckStateContext } from '@/components/deckgl/_deckcontext'
 import { Button } from '@/components/ui/button'
 import { useMutation } from '@tanstack/react-query'
-import { addRestaurant } from '../_actions/restaurantActions'
+import { addRestaurant, editRestaurant } from '../_actions/restaurantActions'
 
 export function RestaurantForm({
   restaurant,
@@ -34,6 +34,7 @@ export function RestaurantForm({
       latitude: '' as unknown as number,
       longtitude: '' as unknown as number,
       website: '',
+      leonNotes: '',
     },
   })
   const formState = useFormState({
@@ -57,20 +58,23 @@ export function RestaurantForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckState.googlePlaceDetails])
 
-  const { mutate, isError, error } = useMutation({
+  const { mutate: addEntry, error: addError } = useMutation({
     mutationFn: async (values: RestaurantType) => addRestaurant(values),
   })
 
+  const { mutate: editEntry, error: editError } = useMutation({
+    mutationFn: async (values: RestaurantType) => editRestaurant(values),
+  })
+
   function onSubmit(values: RestaurantType) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // console.table(values)
-    mutate(values)
+    !!restaurant ? editEntry(values) : addEntry(values)
   }
+
+  const error = addError || editError
 
   return (
     <div className="mt-10 max-w-5xl p-5">
-      {isError && error.message}
+      {error && <div className="text-red-500">{error.message}</div>}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -154,6 +158,19 @@ export function RestaurantForm({
                 <FormLabel>Google URL</FormLabel>
                 <FormControl>
                   <Input placeholder="Google URL" {...field} type="url" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="leonNotes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Leon Notes</FormLabel>
+                <FormControl>
+                  <Input placeholder="Leon Notes" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

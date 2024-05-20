@@ -10,7 +10,8 @@ const restaurantSchema: z.ZodType<
   latitude: z.coerce.number().min(-90).max(90),
   longtitude: z.coerce.number().min(-180).max(180),
   googleURL: z.string().url(),
-  website: z.union([z.literal(''), z.string().url().optional()]).optional(),
+  website: z.union([z.literal(''), z.string().url().optional()]),
+  leonNotes: z.string(),
 })
 
 export type RestaurantType = z.infer<typeof restaurantSchema>
