@@ -18,6 +18,7 @@ import { useDeckStateContext } from '@/components/deckgl/_deckcontext'
 import { Button } from '@/components/ui/button'
 import { useMutation } from '@tanstack/react-query'
 import { addRestaurant, editRestaurant } from '../_actions/restaurantActions'
+import { useRouter } from 'next/navigation'
 
 export function RestaurantForm({
   restaurant,
@@ -40,6 +41,7 @@ export function RestaurantForm({
   const formState = useFormState({
     control: form.control,
   })
+  const router = useRouter()
 
   useEffect(() => {
     if (
@@ -60,10 +62,16 @@ export function RestaurantForm({
 
   const { mutate: addEntry, error: addError } = useMutation({
     mutationFn: async (values: RestaurantType) => addRestaurant(values),
+    onSuccess: () => {
+      router.push('/admin/restaurant')
+    },
   })
 
   const { mutate: editEntry, error: editError } = useMutation({
     mutationFn: async (values: RestaurantType) => editRestaurant(values),
+    onSuccess: () => {
+      router.push('/admin/restaurant')
+    },
   })
 
   function onSubmit(values: RestaurantType) {
