@@ -13,7 +13,7 @@ import {
   PlaceAutocompleteResult,
   PlaceData,
 } from '@googlemaps/google-maps-services-js'
-import { useDeckStateContext } from '../deckgl/_deckcontext'
+import { DeckViewStateType, useDeckStateContext } from '../deckgl/_deckcontext'
 import { getPlaceDetails, placeAutoComplete } from './placeAction'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ''
@@ -36,9 +36,11 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
     if (searchPlace.length < 3) setAutoOption([])
     else {
       startTransition(() => {
-        placeAutoComplete(searchPlace).then((resp) =>
-          setAutoOption(resp.data.predictions)
-        )
+        placeAutoComplete(
+          searchPlace,
+          state.viewState.longitude,
+          state.viewState.latitude
+        ).then((resp) => setAutoOption(resp.data.predictions))
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +57,7 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
             longtitude: data.geometry?.location.lng,
             latitude: data.geometry?.location.lat,
             zoom: 16,
-          },
+          } as DeckViewStateType,
         })
 
         dispatch({

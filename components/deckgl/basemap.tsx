@@ -1,8 +1,8 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { DeckGL, TileLayer, BitmapLayer, Position, Layer } from 'deck.gl/typed'
-import { useDeckStateContext } from './_deckcontext'
+import { DeckViewStateType, useDeckStateContext } from './_deckcontext'
 
 interface IBaseMapProps {
   height?: string
@@ -23,8 +23,7 @@ const BaseMap: FC<IBaseMapProps> = ({
   width = '100%',
   layers = [],
 }) => {
-  const [initialViewState, setInitialViewState] = useState(INITIAL_VIEW_STATE)
-  const { state } = useDeckStateContext()
+  const { state, dispatch } = useDeckStateContext()
   const tileLayer = new TileLayer({
     data: 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
     minZoom: 0,
@@ -59,6 +58,10 @@ const BaseMap: FC<IBaseMapProps> = ({
       }}
       height={height}
       width={width}
+      onViewStateChange={(viewState) => {
+        // setCenter([viewState.viewState.longitude, viewState.viewState.latitude])
+        dispatch({ viewState: viewState.viewState as DeckViewStateType })
+      }}
     />
   )
 }

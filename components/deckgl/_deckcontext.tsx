@@ -7,8 +7,17 @@ import {
   useReducer,
 } from 'react'
 
+export type DeckViewStateType = {
+  longitude: number
+  latitude: number
+  zoom: number
+  pitch: number
+  bearing: number
+  minZoom: number
+}
+
 export type DeckStateType = {
-  viewState: any
+  viewState: DeckViewStateType
   googlePlaceDetails?: Partial<PlaceData>
 }
 
@@ -20,7 +29,7 @@ export const initializeState: DeckStateType = {
     pitch: 0,
     bearing: 0,
     minZoom: 8,
-  },
+  } as DeckViewStateType,
 }
 
 const DeckStateContext = createContext<{
