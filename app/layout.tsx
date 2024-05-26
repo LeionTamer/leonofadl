@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import './globalIcons.css'
 import AppProviders from './_providers'
 import Navbar from './_navbar'
 

@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { getRestaurants } from './_actions/restaurantAction'
+import IconLink from '@/components/ui/card/iconlink'
 
 async function RestaurantPage() {
   const restaurants = await getRestaurants()
@@ -27,7 +28,10 @@ async function RestaurantPage() {
                   <CardDescription>{restaurant.leonNotes}</CardDescription>
                 )}
               </CardHeader>
-              <CardContent></CardContent>
+              <CardContent>
+                {/* <span className="material-symbols-outlined">search</span> */}
+                <IconLink icon="globe" url={restaurant.website} />
+              </CardContent>
             </Card>
           ))}
         </div>
