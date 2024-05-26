@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Button } from '../button'
 
 interface IconLinkProps {
   url: string

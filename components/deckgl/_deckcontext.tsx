@@ -1,4 +1,5 @@
 import { PlaceData } from '@googlemaps/google-maps-services-js'
+import { Feature, GeoJsonProperties, MultiPoint } from 'geojson'
 import {
   Dispatch,
   ReactNode,
@@ -19,6 +20,7 @@ export type DeckViewStateType = {
 export type DeckStateType = {
   viewState: DeckViewStateType
   googlePlaceDetails?: Partial<PlaceData>
+  featurePoints?: Feature<MultiPoint, GeoJsonProperties>
 }
 
 export const initializeState: DeckStateType = {

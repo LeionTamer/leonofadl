@@ -59,7 +59,6 @@ const BaseMap: FC<IBaseMapProps> = ({
       height={height}
       width={width}
       onViewStateChange={(viewState) => {
-        // setCenter([viewState.viewState.longitude, viewState.viewState.latitude])
         dispatch({ viewState: viewState.viewState as DeckViewStateType })
       }}
     />

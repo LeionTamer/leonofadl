@@ -16,11 +16,6 @@ async function RestaurantPage() {
       <div className="max-w-7xl mx-auto px-2 my-5 md:my-2">
         <div className="flex flex-col gap-2">
           {restaurants.map((restaurant) => (
-            //   <div key={restaurant.id}>
-            //     <h1>{restaurant.name}</h1>
-            //     <p>{restaurant.address}</p>
-            //     <p>{restaurant.website}</p>
-            //   </div>
             <Card key={restaurant.id}>
               <CardHeader>
                 <CardTitle>{restaurant.name}</CardTitle>
@@ -29,7 +24,7 @@ async function RestaurantPage() {
                 )}
               </CardHeader>
               <CardContent>
-                {/* <span className="material-symbols-outlined">search</span> */}
+                <div>{restaurant.address}</div>
                 <IconLink icon="globe" url={restaurant.website} />
               </CardContent>
             </Card>
