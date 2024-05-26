@@ -45,6 +45,12 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum UserRole {
+  USER
+  ADMIN
+  FRIEND
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -55,6 +61,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  userRole      UserRole @default(USER)
 }
 
 model VerificationToken {
@@ -63,16 +70,6 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model GooglePlaces {
-  placeId     String @id
-  name        String
-  address     String
-  latitude    Float?
-  longtitude   Float?
-  googleURL   String
-  website     String?
 }
 
 model Restaurant {
@@ -84,4 +81,6 @@ model Restaurant {
   googleURL   String
   website     String
   leonNotes   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }
