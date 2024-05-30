@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import AuthButton from './_authButton'
 import Link from 'next/link'
 
@@ -10,7 +11,15 @@ const Navbar = () => {
             Home
           </Link>
         </div>
-        <div>
+        <div className="flex justify-between gap-5">
+          <Link
+            href="/who-is"
+            legacyBehavior
+            passHref
+            className="p-5 content-center"
+          >
+            who-is
+          </Link>
           <AuthButton />
         </div>
       </div>
