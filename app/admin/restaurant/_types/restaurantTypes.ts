@@ -2,9 +2,14 @@ import { Restaurant } from '@prisma/client'
 import * as z from 'zod'
 
 const restaurantSchema: z.ZodType<
-  Omit<Restaurant, 'id' | 'website'> & { id?: string; website?: string }
+  Omit<Restaurant, 'id' | 'website' | 'createdAt' | 'updatedAt'> & {
+    id?: string
+    website?: string
+    createdAt?: Date
+    updatedAt?: Date
+  }
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   name: z.string().min(3),
   address: z.string(),
   latitude: z.coerce.number().min(-90).max(90),
@@ -12,8 +17,8 @@ const restaurantSchema: z.ZodType<
   googleURL: z.string().url(),
   website: z.union([z.literal(''), z.string().url().optional()]),
   leonNotes: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 })
 
 export type RestaurantType = z.infer<typeof restaurantSchema>
