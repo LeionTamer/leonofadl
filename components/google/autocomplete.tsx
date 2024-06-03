@@ -54,9 +54,9 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
         dispatch({
           viewState: {
             ...state.viewState,
+            zoom: 14,
             longtitude: data.geometry?.location.lng,
             latitude: data.geometry?.location.lat,
-            zoom: 14,
           } as DeckViewStateType,
         })
 
