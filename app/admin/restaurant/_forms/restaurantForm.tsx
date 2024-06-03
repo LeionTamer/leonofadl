@@ -28,6 +28,7 @@ export function RestaurantForm({
   const { state: deckState } = useDeckStateContext()
   const form = useForm<RestaurantType>({
     resolver: zodResolver(restaurantSchema),
+    reValidateMode: 'onChange',
     defaultValues: restaurant || {
       name: '',
       address: '',
@@ -185,11 +186,7 @@ export function RestaurantForm({
             )}
           />
 
-          <Button
-            type="submit"
-            className="mt-5"
-            disabled={!formState.isDirty || !formState.isValid}
-          >
+          <Button type="submit" className="mt-5" disabled={formState.isLoading}>
             Submit
           </Button>
         </form>

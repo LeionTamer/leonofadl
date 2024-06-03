@@ -21,7 +21,6 @@ export async function addRestaurant(restaurant: RestaurantType) {
       data: { ...restaurant, website: restaurant.website || '' },
     })
 
-    console.table(response)
     revalidatePath('/admin/restaurant')
   } catch (e) {
     return { error: 'Failed to add restaurant' }
@@ -35,10 +34,9 @@ export async function editRestaurant(restaurant: RestaurantType) {
   try {
     const response = await db.restaurant.update({
       where: { id: restaurant.id },
-      data: restaurant,
+      data: { ...restaurant, updatedAt: new Date() },
     })
 
-    console.table(response)
     revalidatePath('/admin/restaurant')
   } catch (e) {
     return { error: 'Failed to update restaurant' }
