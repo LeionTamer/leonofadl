@@ -11,6 +11,7 @@ import { getRestaurants } from './_actions/restaurantActions'
 import Link from 'next/link'
 import DeleteButton from './_forms/deleteButton'
 import { Button } from '@/components/ui/button'
+import { RestaurantType } from './_types/restaurantTypes'
 
 async function RestaurantPage() {
   const session = await adminAuth()
@@ -18,9 +19,9 @@ async function RestaurantPage() {
 
   const restaurants = await getRestaurants()
   return (
-    <div className="max-w-5xl mx-auto my-5 p-2">
+    <div className="mx-auto my-5 max-w-5xl p-2">
       <div className="flex justify-end">
-        <Button className="min-w-24 ">
+        <Button className="min-w-24">
           <Link href="/admin/restaurant/new">New</Link>
         </Button>
       </div>
@@ -42,7 +43,7 @@ async function RestaurantPage() {
                 </Link>
               </TableCell>
               <TableCell width="2xl">
-                <DeleteButton restaurant={restaurant} />
+                <DeleteButton restaurant={restaurant as RestaurantType} />
               </TableCell>
             </TableRow>
           ))}

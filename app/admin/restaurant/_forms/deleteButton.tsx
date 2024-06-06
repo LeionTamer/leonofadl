@@ -16,7 +16,7 @@ import { deleteRestaurant } from '../_actions/restaurantActions'
 export default function DeleteButton({
   restaurant,
 }: {
-  restaurant: RestaurantType
+  restaurant: Partial<RestaurantType>
 }) {
   const { mutate } = useMutation({
     mutationFn: async () => await deleteRestaurant(restaurant.id!),

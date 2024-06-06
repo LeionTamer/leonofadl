@@ -36,6 +36,8 @@ export function RestaurantForm({
       latitude: '' as unknown as number,
       longtitude: '' as unknown as number,
       website: '',
+      phoneNumber: '',
+      tags: [],
       leonNotes: '',
     },
   })

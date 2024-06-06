@@ -4,22 +4,24 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <nav className=" bg-[#ffc971] p-2">
-      <div className="flex justify-between max-w-7xl mx-auto">
+    <nav className="bg-[#ffc971] p-2">
+      <div className="mx-auto flex max-w-7xl justify-between">
         <div className="self-center p-2">
           <Link href="/" legacyBehavior passHref>
             Home
           </Link>
         </div>
         <div className="flex justify-between gap-5">
-          <Link
-            href="/who-is"
-            legacyBehavior
-            passHref
-            className="p-5 content-center"
-          >
-            who-is
-          </Link>
+          <div className="self-center p-2">
+            <Link
+              href="/who-is"
+              legacyBehavior
+              passHref
+              className="content-center p-5"
+            >
+              who-is
+            </Link>
+          </div>
           <AuthButton />
         </div>
       </div>
