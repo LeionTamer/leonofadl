@@ -5,10 +5,17 @@ import {
   useDeckStateContext,
 } from '@/components/deckgl/_deckcontext'
 import BaseMap from '@/components/deckgl/basemap'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import { Restaurant } from '@prisma/client'
 import { GeoJsonLayer, IconLayer } from 'deck.gl/typed'
 import { FeatureCollection, Feature, Geometry } from 'geojson'
-import { useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 
 function createSVGIcon(idx: number) {
   return `
@@ -25,7 +32,7 @@ interface IRestarurantMapViewProps {
 }
 
 function RestaurantMapView({ restaurants }: IRestarurantMapViewProps) {
-  const [] = useState(10)
+  const [selected, setSelected] = useState<Restaurant | undefined>()
 
   const iconData = restaurants.map((restaurant) => ({
     name: restaurant.name,
@@ -45,25 +52,38 @@ function RestaurantMapView({ restaurants }: IRestarurantMapViewProps) {
       height: 24,
     }),
     getPosition: (d) => d.coordinates,
-    getSize: 10,
+    getSize: 5,
     pickable: true,
-    sizeScale: 3,
+    sizeScale: 1,
     onClick: (info) => {
       const [longitude, latitude] = info.coordinate as [number, number]
       const viewState = state.viewState
       dispatch({
         viewState: { ...viewState, longitude, latitude, zoom: 18 },
       })
+      setSelected(restaurants[info.index])
     },
+    sizeUnits: 'meters',
+    sizeMinPixels: 20,
   })
 
-  return <BaseMap height="100vh" layers={[layer]} />
+  return (
+    <>
+      <BaseMap height="100vh" layers={[layer]} />
+      <Dialog open={!!selected} onOpenChange={() => setSelected(undefined)}>
+        <DialogClose onClick={() => setSelected(undefined)} />
+        <DialogContent onInteractOutside={() => setSelected(undefined)}>
+          'cats'
+        </DialogContent>
+      </Dialog>
+    </>
+  )
 }
 
-const WrappedMapView = ({ restaurants }: IRestarurantMapViewProps) => {
+const WrappedMapView = (props: IRestarurantMapViewProps) => {
   return (
     <DeckContextProvider>
-      <RestaurantMapView restaurants={restaurants} />
+      <RestaurantMapView {...props} />
     </DeckContextProvider>
   )
 }
