@@ -5,17 +5,11 @@ import {
   useDeckStateContext,
 } from '@/components/deckgl/_deckcontext'
 import BaseMap from '@/components/deckgl/basemap'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import { Dialog, DialogClose, DialogContent } from '@/components/ui/dialog'
 import { Restaurant } from '@prisma/client'
-import { GeoJsonLayer, IconLayer } from 'deck.gl/typed'
-import { FeatureCollection, Feature, Geometry } from 'geojson'
-import { Dispatch, useEffect, useState } from 'react'
+import { IconLayer } from 'deck.gl/typed'
+import { useState } from 'react'
+import RestaurantSection from '../components/restaurantSection'
 
 function createSVGIcon(idx: number) {
   return `
@@ -73,7 +67,9 @@ function RestaurantMapView({ restaurants }: IRestarurantMapViewProps) {
       <Dialog open={!!selected} onOpenChange={() => setSelected(undefined)}>
         <DialogClose onClick={() => setSelected(undefined)} />
         <DialogContent onInteractOutside={() => setSelected(undefined)}>
-          'cats'
+          {!!selected && (
+            <RestaurantSection restaurant={selected} opened={true} />
+          )}
         </DialogContent>
       </Dialog>
     </>

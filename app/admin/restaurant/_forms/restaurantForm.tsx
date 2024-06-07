@@ -63,14 +63,22 @@ export function RestaurantForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckState.googlePlaceDetails])
 
-  const { mutate: addEntry, error: addError } = useMutation({
+  const {
+    mutate: addEntry,
+    error: addError,
+    isPending: isAdding,
+  } = useMutation({
     mutationFn: async (values: RestaurantType) => addRestaurant(values),
     onSuccess: () => {
       router.push('/admin/restaurant')
     },
   })
 
-  const { mutate: editEntry, error: editError } = useMutation({
+  const {
+    mutate: editEntry,
+    error: editError,
+    isPending: isEditing,
+  } = useMutation({
     mutationFn: async (values: RestaurantType) => editRestaurant(values),
     onSuccess: () => {
       router.push('/admin/restaurant')
@@ -188,7 +196,11 @@ export function RestaurantForm({
             )}
           />
 
-          <Button type="submit" className="mt-5" disabled={formState.isLoading}>
+          <Button
+            type="submit"
+            className="mt-5"
+            disabled={isAdding || isEditing}
+          >
             Submit
           </Button>
         </form>

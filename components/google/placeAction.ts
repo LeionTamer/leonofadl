@@ -1,5 +1,6 @@
 'use server'
 import { gMapClient } from '@/lib/google-api'
+import { PlaceAutocompleteType } from '@googlemaps/google-maps-services-js'
 const apiKey = process.env.GOOGLE_API_KEY || ''
 
 export async function placeAutoComplete(
@@ -13,6 +14,7 @@ export async function placeAutoComplete(
       input: searchText,
       location: `${latitude},${longtitude}`,
       radius: 10,
+      types: 'establishment' as PlaceAutocompleteType,
     },
   })
 

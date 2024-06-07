@@ -30,6 +30,8 @@ export async function addRestaurant(restaurant: RestaurantType) {
 export async function editRestaurant(restaurant: RestaurantType) {
   const result = restaurantSchema.safeParse(restaurant)
 
+  console.table(result)
+
   if (!result.success) return { error: 'Invalid restaurant data' }
   try {
     const response = await db.restaurant.update({
