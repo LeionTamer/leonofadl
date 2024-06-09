@@ -13,7 +13,7 @@ import { useForm, useFormState } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import AutoCompleteMap from '@/components/google/autocompleteMap'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDeckStateContext } from '@/components/deckgl/_deckcontext'
 import { Button } from '@/components/ui/button'
 import { useMutation } from '@tanstack/react-query'
@@ -41,9 +41,9 @@ export function RestaurantForm({
       leonNotes: '',
     },
   })
-  const formState = useFormState({
-    control: form.control,
-  })
+  const [formTags, setFormTags] = useState<string[]>(
+    form.getValues('tags') || []
+  )
   const router = useRouter()
 
   useEffect(() => {
@@ -57,7 +57,6 @@ export function RestaurantForm({
       form.setValue('address', details.formatted_address!)
       form.setValue('latitude', details.geometry!.location.lat)
       form.setValue('longtitude', details.geometry!.location.lng)
-      //   form.setValue('placeId', details.place_id!)
       form.setValue('googleURL', details.url || '')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +67,8 @@ export function RestaurantForm({
     error: addError,
     isPending: isAdding,
   } = useMutation({
-    mutationFn: async (values: RestaurantType) => addRestaurant(values),
+    mutationFn: async (values: RestaurantType) =>
+      addRestaurant({ ...values, tags: formTags }),
     onSuccess: () => {
       router.push('/admin/restaurant')
     },
@@ -79,7 +79,8 @@ export function RestaurantForm({
     error: editError,
     isPending: isEditing,
   } = useMutation({
-    mutationFn: async (values: RestaurantType) => editRestaurant(values),
+    mutationFn: async (values: RestaurantType) =>
+      editRestaurant({ ...values, tags: formTags }),
     onSuccess: () => {
       router.push('/admin/restaurant')
     },
@@ -194,6 +195,17 @@ export function RestaurantForm({
                 <FormMessage />
               </FormItem>
             )}
+          />
+          <Input
+            placeholder="Tags"
+            defaultValue={form.getValues('tags')?.join('; ')}
+            onBlur={(event) =>
+              setFormTags(
+                event.currentTarget.value
+                  .split(';')
+                  .map((entry) => entry.trim())
+              )
+            }
           />
 
           <Button
