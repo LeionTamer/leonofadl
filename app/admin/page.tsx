@@ -1,18 +1,10 @@
 import { authOptions } from '@/helpers/auth'
 import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
+import { adminAuth } from './_actions/serverAuth'
 
 async function AdminPage() {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    redirect('/api/auth/signin')
-  } else {
-    // console.table(session)
-    if (session.user.email !== 'leoncarbonell@gmail.com') {
-      redirect('/')
-    }
-  }
+  const session = await adminAuth()
 
   return <h1>AdminPage</h1>
 }

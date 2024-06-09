@@ -12,4 +12,11 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  callbacks: {
+    async session({ session, user }) {
+      session.role = user.userRole
+      session.email = user.email
+      return session
+    },
+  },
 } satisfies AuthOptions
