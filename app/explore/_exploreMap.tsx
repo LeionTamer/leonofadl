@@ -4,7 +4,7 @@ import {
   DeckContextProvider,
   useDeckStateContext,
 } from '@/components/deckgl/_deckcontext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IconLayer } from 'deck.gl/typed'
 import { Restaurant } from '@prisma/client'
 import BaseMap from '@/components/deckgl/basemap'
@@ -47,7 +47,7 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
       height: 24,
     }),
     getPosition: (d) => d.coordinates,
-    getSize: 5,
+    getSize: 50,
     pickable: true,
     sizeScale: 1,
     onClick: (info) => {
@@ -60,7 +60,14 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
     },
     sizeUnits: 'meters',
     sizeMinPixels: 20,
+    sizeMaxPixels: 50,
   })
+
+  useEffect(() => {
+    return () => {
+      setSelected(undefined)
+    }
+  }, [])
 
   return (
     <>
