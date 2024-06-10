@@ -29,19 +29,18 @@ const menu: SectionRecord = {
   ],
   main: [
     {
-      title: 'Proof Of Concept Creator',
-      description:
-        'If you have a concept or idea, I can build a website using NextJS!',
+      title: 'Epicurean Experiment Engineer',
+      description: 'If you have a concept or idea, I can build it with NextJS!',
     },
     {
-      title: 'Geospatial Visualiser',
+      title: 'Layered Terrain Designer',
       description:
-        'All I need is GeoJSON data, and we can put things on a map. We can do it with DeckGL and Leaflet.',
+        'With a sprinkle of DeckGL and pinch of Mapbox with Leaflet on the side, I can serve a delectable geographic visualisation on a map.',
     },
     {
-      title: 'AI Assisted Developer',
+      title: 'Haute and Savory Script Specialists',
       description:
-        'With OpenAI, I have created a social media content editor. Feel free to ask me more about it.',
+        'With OpenAI, I have created tools and demos that simplifies day to day tasks.',
     },
   ],
   dessert: [
@@ -60,11 +59,11 @@ const menu: SectionRecord = {
 
 function DeveloperProfile() {
   return (
-    <div className={`my-2 md:my-10 text-center text-[#8f250c] `}>
-      <div className={`text-5xl font-bold mb-10 ${handwritten.className}`}>
+    <div className={`my-2 text-center text-[#8f250c] md:my-10`}>
+      <div className={`mb-10 text-5xl font-bold ${handwritten.className}`}>
         A Taste Of Leon
       </div>
-      <div className={`flex flex-col gap-10 mt-5 `}>
+      <div className={`mt-5 flex flex-col gap-10`}>
         {Object.entries(menu).map(([section, items]) => (
           <div
             key={section}
@@ -79,7 +78,7 @@ function DeveloperProfile() {
                   >
                     {item.title}
                   </div>
-                  <div className={`text-base mt-1 ${biryani.className}`}>
+                  <div className={`mt-1 text-base ${biryani.className}`}>
                     {item.description}
                   </div>
                 </div>
