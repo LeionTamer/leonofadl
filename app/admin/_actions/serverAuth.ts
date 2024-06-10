@@ -10,7 +10,6 @@ export async function adminAuth() {
   if (!session) {
     redirect('/api/auth/signin')
   } else {
-    console.table(session)
     if (
       session.email !== 'leoncarbonell@gmail.com' &&
       session.role !== 'ADMIN'
