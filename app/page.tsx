@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen flex-col items-center justify-between bg-[#ffc971]">
       <div className="mx-auto flex h-[300px] max-w-7xl flex-col items-center justify-center text-center text-5xl md:text-7xl">
-        Elevate Your Eating Experience with Leon's Digital Twin!
+        {"Elevate Your Eating Experience with Leon's Digital Twin!"}
       </div>
       <div className="mx-auto flex max-w-7xl flex-wrap justify-start">
         <div className="flex h-[600px] basis-1 flex-col items-center justify-center bg-red-200 px-10 text-3xl md:basis-1/2 md:text-4xl">
