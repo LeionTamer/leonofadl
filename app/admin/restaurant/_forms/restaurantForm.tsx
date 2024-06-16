@@ -19,6 +19,14 @@ import { Button } from '@/components/ui/button'
 import { useMutation } from '@tanstack/react-query'
 import { addRestaurant, editRestaurant } from '../_actions/restaurantActions'
 import { useRouter } from 'next/navigation'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Rating } from '@prisma/client'
 
 export function RestaurantForm({
   restaurant,
@@ -38,6 +46,7 @@ export function RestaurantForm({
       website: '',
       phoneNumber: '',
       tags: [],
+      rating: 'COMMON',
       leonNotes: '',
     },
   })
@@ -105,6 +114,33 @@ export function RestaurantForm({
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Restaurant Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="rating"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rating</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue {...field} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.values(Rating).map((rating) => (
+                        <SelectItem key={rating} value={rating}>
+                          {rating}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>

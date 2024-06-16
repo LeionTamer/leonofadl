@@ -72,6 +72,13 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+enum Rating {
+  COMMON
+  UNCOMMON
+  RARE
+  MYTHIC
+}
+
 model Restaurant {
   id            String    @id @default(cuid())
   name        String
@@ -85,4 +92,5 @@ model Restaurant {
   leonNotes   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
+  rating       Rating @default(COMMON)
 }

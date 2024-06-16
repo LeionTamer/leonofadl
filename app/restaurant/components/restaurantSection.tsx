@@ -1,7 +1,20 @@
 import { Badge } from '@/components/ui/badge'
-import { Restaurant } from '@prisma/client'
+import { Rating, Restaurant } from '@prisma/client'
 import Link from 'next/link'
 import { Dispatch } from 'react'
+
+function colorMap(rating: Rating) {
+  switch (rating) {
+    case 'COMMON':
+      return 'text-black'
+    case 'UNCOMMON':
+      return 'text-slate-400'
+    case 'RARE':
+      return 'text-blue-700'
+    case 'MYTHIC':
+      return 'text-orange-700'
+  }
+}
 
 interface IRestaurantSection {
   restaurant: Restaurant
@@ -21,7 +34,9 @@ export default function RestaurantSection({
         if (!!selectRestaurant) selectRestaurant(restaurant.id)
       }}
     >
-      <h1 className="text-xl font-bold">{restaurant.name}</h1>
+      <h1 className={`text-xl font-bold ${colorMap(restaurant.rating)}`}>
+        {restaurant.name}
+      </h1>
       <div>{restaurant.address}</div>
       {!!restaurant.tags && (
         <div className="flex gap-2">
@@ -41,7 +56,6 @@ export default function RestaurantSection({
         </Link>
       )}
 
-      {/* {opened && <p>Open</p>} */}
       {opened && (
         <>{restaurant.phoneNumber && <div>{restaurant.phoneNumber}</div>}</>
       )}
