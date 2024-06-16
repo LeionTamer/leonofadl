@@ -21,6 +21,7 @@ export async function addRestaurant(restaurant: RestaurantType) {
       data: { ...restaurant, website: restaurant.website || '' },
     })
 
+    revalidatePath('/')
     revalidatePath('/admin/restaurant')
     revalidatePath('/explore')
     revalidatePath('/restaurant')
@@ -39,6 +40,7 @@ export async function editRestaurant(restaurant: RestaurantType) {
       data: { ...restaurant, updatedAt: new Date() },
     })
 
+    revalidatePath('/')
     revalidatePath('/admin/restaurant')
     revalidatePath('/explore')
     revalidatePath('/restaurant')
