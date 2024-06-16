@@ -22,6 +22,8 @@ export async function addRestaurant(restaurant: RestaurantType) {
     })
 
     revalidatePath('/admin/restaurant')
+    revalidatePath('/explore')
+    revalidatePath('/restaurant')
   } catch (e) {
     return { error: 'Failed to add restaurant' }
   }
@@ -38,6 +40,8 @@ export async function editRestaurant(restaurant: RestaurantType) {
     })
 
     revalidatePath('/admin/restaurant')
+    revalidatePath('/explore')
+    revalidatePath('/restaurant')
   } catch (e) {
     return { error: 'Failed to update restaurant' }
   }
