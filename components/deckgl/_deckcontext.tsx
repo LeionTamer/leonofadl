@@ -25,12 +25,12 @@ export type DeckStateType = {
 
 export const initializeState: DeckStateType = {
   viewState: {
-    longitude: 138.599503,
-    latitude: -34.92123,
-    zoom: 13,
+    longitude: 138.5999,
+    latitude: -34.929,
+    zoom: 14,
     pitch: 0,
     bearing: 0,
-    minZoom: 8,
+    minZoom: 10,
   } as DeckViewStateType,
 }
 

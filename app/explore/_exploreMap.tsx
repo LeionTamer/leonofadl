@@ -47,17 +47,17 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
       height: 24,
     }),
     getPosition: (d) => d.coordinates,
-    getSize: 50,
     pickable: true,
-    sizeScale: 1,
     onClick: (info) => {
       const [longitude, latitude] = info.coordinate as [number, number]
       const viewState = state.viewState
       dispatch({
-        viewState: { ...viewState, longitude, latitude, zoom: 18 },
+        viewState: { ...viewState, longitude, latitude, zoom: 17 },
       })
       setSelected(restaurants[info.index])
     },
+    getSize: 100,
+    sizeScale: 1,
     sizeUnits: 'meters',
     sizeMinPixels: 20,
     sizeMaxPixels: 30,
