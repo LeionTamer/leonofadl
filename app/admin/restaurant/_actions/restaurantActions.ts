@@ -53,7 +53,10 @@ export async function deleteRestaurant(id: string) {
   try {
     await db.restaurant.delete({ where: { id } })
 
+    revalidatePath('/')
     revalidatePath('/admin/restaurant')
+    revalidatePath('/explore')
+    revalidatePath('/restaurant')
   } catch (e) {
     return { error: 'Failed to delete restaurant' }
   }

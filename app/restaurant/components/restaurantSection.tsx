@@ -38,13 +38,13 @@ export default function RestaurantSection({
         {restaurant.name}
       </h1>
       <div>{restaurant.address}</div>
-      {!!restaurant.tags && (
+      {!!restaurant.tags ? (
         <div className="flex gap-2">
           {restaurant.tags.map((tag, index) => (
             <Badge key={index}>{tag}</Badge>
           ))}
         </div>
-      )}
+      ) : null}
 
       {!!restaurant.website && (
         <Link

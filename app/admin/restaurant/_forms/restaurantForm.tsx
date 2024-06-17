@@ -240,6 +240,7 @@ export function RestaurantForm({
                 event.currentTarget.value
                   .split(';')
                   .map((entry) => entry.trim())
+                  .filter((entry) => entry !== '')
               )
             }
           />
