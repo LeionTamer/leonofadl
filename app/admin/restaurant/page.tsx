@@ -28,7 +28,7 @@ async function RestaurantPage() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[250px]">ID</TableHead>
+            <TableHead className="hidden w-[250px] md:block">ID</TableHead>
             <TableHead>Name</TableHead>
             <TableHead></TableHead>
           </TableRow>
@@ -36,7 +36,7 @@ async function RestaurantPage() {
         <TableBody>
           {restaurants.map((restaurant) => (
             <TableRow key={restaurant.id}>
-              <TableCell>{restaurant.id}</TableCell>
+              <TableCell className="hidden md:block">{restaurant.id}</TableCell>
               <TableCell>
                 <Link href={`/admin/restaurant/${restaurant.id}`}>
                   {restaurant.name}

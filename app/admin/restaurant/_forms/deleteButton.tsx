@@ -29,16 +29,16 @@ export default function DeleteButton({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Delete</Button>
+        <Button variant="destructive">Delete</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogDescription>Delete entry?</DialogDescription>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="destructive" onClick={handleDelete}>
-              Delete
-            </Button>
-          </DialogClose>
+          {/* <DialogClose asChild> */}
+          <Button variant={'destructive'} onClick={handleDelete}>
+            Delete
+          </Button>
+          {/* </DialogClose> */}
         </DialogFooter>
       </DialogContent>
     </Dialog>
