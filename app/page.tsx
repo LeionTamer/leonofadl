@@ -32,7 +32,7 @@ export default async function Home() {
         </div>
         <div className="h-90 mx-auto w-full flex-row overflow-y-auto p-5 md:w-1/2">
           <div>
-            <div className="mb-5 text-2xl">Latest</div>
+            <div className="mb-5 text-2xl">Latest Updates</div>
             <div className="my-auto">
               {restaurants.map((restaurant, index) => (
                 <div key={restaurant.id} className="my-2">
