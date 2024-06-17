@@ -18,7 +18,7 @@ type ExploreMapPropsType = {
 
 function createSVGIcon(idx: number) {
   return `
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#BB271A"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#EA3323"><path d="M480.14-484.43q31.43 0 53.71-22.14t22.28-53.57q0-31.43-22.26-53.71-22.25-22.28-53.84-22.28-31.6 0-53.6 22.26-22 22.25-22 53.84 0 31.6 22.14 53.6t53.57 22ZM480-61.17q-171.57-142-255.2-261.66-83.63-119.65-83.63-231.74 0-155.05 101.5-250.44 101.5-95.38 237.33-95.38 135.58 0 237.49 95.38 101.9 95.39 101.9 250.44 0 112.09-83.91 231.74Q651.57-203.17 480-61.17Z"/></svg>
     `
 }
 
@@ -60,7 +60,7 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
     },
     sizeUnits: 'meters',
     sizeMinPixels: 20,
-    sizeMaxPixels: 50,
+    sizeMaxPixels: 30,
   })
 
   useEffect(() => {

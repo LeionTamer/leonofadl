@@ -45,6 +45,10 @@ export default function RestaurantSection({
       >
         {restaurant.name}
       </h1>
+      {restaurant.leonNotes && (
+        <div className="pl-2 italic">{restaurant.leonNotes}</div>
+      )}
+
       {!!restaurant.tags && restaurant.tags.length >= 1 ? (
         <div className="flex gap-2">
           {restaurant.tags.map((tag, index) => (
@@ -67,6 +71,15 @@ export default function RestaurantSection({
         <>
           <div>{restaurant.address}</div>
           {restaurant.phoneNumber && <div>{restaurant.phoneNumber}</div>}
+          <div>
+            <Link
+              href={restaurant.googleURL}
+              className="font-bold text-blue-700"
+              target="_blank"
+            >
+              Open in Google Maps
+            </Link>
+          </div>
         </>
       )}
     </section>
