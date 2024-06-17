@@ -8,7 +8,7 @@ function colorMap(rating: Rating) {
     case 'COMMON':
       return 'text-black'
     case 'UNCOMMON':
-      return 'text-slate-400'
+      return 'text-slate-700/60'
     case 'RARE':
       return 'text-blue-700'
     case 'MYTHIC':
@@ -20,25 +20,32 @@ interface IRestaurantSection {
   restaurant: Restaurant
   opened?: boolean
   selectRestaurant?: Dispatch<string>
+  listView?: boolean
 }
 
 export default function RestaurantSection({
   restaurant,
   opened,
   selectRestaurant,
+  listView = false,
 }: IRestaurantSection) {
   return (
     <section
-      className="flex flex-col justify-center gap-5 py-5 md:py-3"
+      className={`flex flex-col justify-center gap-5 ${
+        opened && listView && 'bg-orange-200/20'
+      } ${listView && 'px-3 py-2 md:px-5'}`}
       onClick={() => {
         if (!!selectRestaurant) selectRestaurant(restaurant.id)
       }}
     >
-      <h1 className={`text-xl font-bold ${colorMap(restaurant.rating)}`}>
+      <h1
+        className={`text-xl font-bold ${colorMap(restaurant.rating)} ${
+          listView ? 'my-4 md:my-2' : 'mb-5 md:mb-3'
+        }`}
+      >
         {restaurant.name}
       </h1>
-      <div>{restaurant.address}</div>
-      {!!restaurant.tags ? (
+      {!!restaurant.tags && restaurant.tags.length >= 1 ? (
         <div className="flex gap-2">
           {restaurant.tags.map((tag, index) => (
             <Badge key={index}>{tag}</Badge>
@@ -49,7 +56,7 @@ export default function RestaurantSection({
       {!!restaurant.website && (
         <Link
           href={restaurant.website}
-          className="my-2 py-2 font-bold text-blue-700"
+          className="font-bold text-blue-700"
           target="_blank"
         >
           {restaurant.website}
@@ -57,7 +64,10 @@ export default function RestaurantSection({
       )}
 
       {opened && (
-        <>{restaurant.phoneNumber && <div>{restaurant.phoneNumber}</div>}</>
+        <>
+          <div>{restaurant.address}</div>
+          {restaurant.phoneNumber && <div>{restaurant.phoneNumber}</div>}
+        </>
       )}
     </section>
   )
