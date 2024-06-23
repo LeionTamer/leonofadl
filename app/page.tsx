@@ -1,9 +1,6 @@
 import db from '@/lib/prisma'
-import RestaurantSection from './restaurant/components/restaurantSection'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
 
 export default async function Home() {
   const restaurants = await db.restaurant.findMany({
