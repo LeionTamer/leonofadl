@@ -4,6 +4,11 @@ import Link from 'next/link'
 
 export default async function Home() {
   const restaurants = await db.restaurant.findMany({
+    orderBy: [
+      {
+        updatedAt: 'desc',
+      },
+    ],
     take: 5,
   })
 
