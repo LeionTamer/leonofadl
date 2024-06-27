@@ -62,9 +62,9 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
       })
       setSelected(restaurants[info.index])
     },
-    getSize: 100,
+    getSize: 30,
     sizeScale: 1,
-    sizeUnits: 'meters',
+    sizeUnits: 'pixels',
     sizeMinPixels: 20,
     sizeMaxPixels: 30,
   })
