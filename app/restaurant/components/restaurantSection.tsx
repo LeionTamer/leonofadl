@@ -31,7 +31,7 @@ export default function RestaurantSection({
 }: IRestaurantSection) {
   return (
     <section
-      className={`flex flex-col justify-center gap-5 ${
+      className={`flex min-h-28 flex-col gap-3 md:min-h-16 ${
         opened && listView && 'bg-orange-200/20'
       } ${listView && 'px-3 py-2 md:px-5'}`}
       onClick={() => {
@@ -40,14 +40,11 @@ export default function RestaurantSection({
     >
       <h1
         className={`text-xl font-bold ${colorMap(restaurant.rating)} ${
-          listView ? 'my-4 md:my-2' : 'mb-5 md:mb-3'
+          listView ? 'b-3 mt-2 md:mb-2 md:mt-1' : 'mb-5 md:mb-3'
         }`}
       >
         {restaurant.name}
       </h1>
-      {restaurant.leonNotes && (
-        <div className="pl-2 italic">{restaurant.leonNotes}</div>
-      )}
 
       {!!restaurant.tags && restaurant.tags.length >= 1 ? (
         <div className="flex gap-2">
@@ -56,6 +53,10 @@ export default function RestaurantSection({
           ))}
         </div>
       ) : null}
+
+      {restaurant.leonNotes && (
+        <div className="pl-2 italic">{restaurant.leonNotes}</div>
+      )}
 
       {!!restaurant.website && (
         <Link
