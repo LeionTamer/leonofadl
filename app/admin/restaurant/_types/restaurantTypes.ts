@@ -1,4 +1,4 @@
-import { Rating, Restaurant } from '@prisma/client'
+import { Rating, Restaurant, VenueStatus } from '@prisma/client'
 import * as z from 'zod'
 
 const restaurantSchema: z.ZodType<
@@ -16,6 +16,8 @@ const restaurantSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   name: z.string().min(3),
+  status: z.nativeEnum(VenueStatus),
+  venueType: z.string(),
   rating: z.nativeEnum(Rating),
   address: z.string(),
   latitude: z.coerce.number().min(-90).max(90),

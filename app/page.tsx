@@ -4,6 +4,9 @@ import Link from 'next/link'
 
 export default async function Home() {
   const restaurants = await db.restaurant.findMany({
+    where: {
+      status: 'OPEN',
+    },
     orderBy: [
       {
         updatedAt: 'desc',

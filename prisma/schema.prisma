@@ -79,6 +79,12 @@ enum Rating {
   MYTHIC
 }
 
+enum VenueStatus {
+  COMING_SOON
+  OPEN
+  CLOSED
+}
+
 model Restaurant {
   id            String    @id @default(cuid())
   name        String
@@ -93,4 +99,6 @@ model Restaurant {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   rating       Rating @default(COMMON)
+  status      VenueStatus @default(OPEN)
+  venueType   String @default("")
 }
