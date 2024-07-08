@@ -12,6 +12,7 @@ import Link from 'next/link'
 import DeleteButton from './_forms/deleteButton'
 import { Button } from '@/components/ui/button'
 import { RestaurantType } from './_types/restaurantTypes'
+import SearchRestaurant from './_components/search'
 
 async function RestaurantPage() {
   const session = await adminAuth()
@@ -24,6 +25,9 @@ async function RestaurantPage() {
         <Button className="min-w-24">
           <Link href="/admin/restaurant/new">New</Link>
         </Button>
+      </div>
+      <div className="py-3">
+        <SearchRestaurant restaurants={restaurants} />
       </div>
       <Table>
         <TableHeader>

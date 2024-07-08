@@ -6,5 +6,8 @@ export async function getRestaurants() {
     where: {
       status: 'OPEN',
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   })
 }

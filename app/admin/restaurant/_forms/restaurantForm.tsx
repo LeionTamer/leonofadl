@@ -268,7 +268,7 @@ export function RestaurantForm({
               setFormTags(
                 event.currentTarget.value
                   .split(';')
-                  .map((entry) => entry.trim())
+                  .map((entry) => entry.toLowerCase().trim())
                   .filter((entry) => entry !== '')
               )
             }
