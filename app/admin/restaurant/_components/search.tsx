@@ -17,32 +17,37 @@ export function SearchRestaurant({ restaurants }: ISearchProps) {
   const [entry, setEntry] = useState('')
   const router = useRouter()
 
-  const filteredRestaurants = restaurants.filter((restaurant) =>
-    restaurant.name.toLowerCase().includes(entry.toLowerCase())
+  const filteredRestaurants = restaurants.filter(
+    (restaurant) =>
+      restaurant.tags.some((tag) => tag.includes(entry.toLowerCase())) ||
+      restaurant.name.toLowerCase().includes(entry.toLowerCase())
   )
 
   return (
-    <Command className="rounded-lg border shadow-md">
-      <CommandInput
-        placeholder="Type a command or search..."
-        value={entry}
-        onValueChange={(e) => setEntry(e)}
-      />
-      <CommandList>
-        {entry.length >= 3 &&
-          filteredRestaurants.map((restaurant) => (
-            <CommandItem key={restaurant.id}>
-              <span
-                onClick={() =>
-                  router.push(`/admin/restaurant/${restaurant.id}`)
-                }
-              >
-                {restaurant.name}
-              </span>
-            </CommandItem>
-          ))}
-      </CommandList>
-    </Command>
+    <>
+      {/* {filteredRestaurants.map((entry) => entry.name)} */}
+      <Command className="rounded-lg border shadow-md">
+        <CommandInput
+          placeholder="Type a command or search..."
+          value={entry}
+          onValueChange={(e) => setEntry(e)}
+        />
+        <CommandList>
+          {entry.length >= 3 &&
+            filteredRestaurants.map((restaurant) => (
+              <CommandItem key={`${restaurant.id}`}>
+                <span
+                  onClick={() =>
+                    router.push(`/admin/restaurant/${restaurant.id}`)
+                  }
+                >
+                  {restaurant.name}
+                </span>
+              </CommandItem>
+            ))}
+        </CommandList>
+      </Command>
+    </>
   )
 }
 
