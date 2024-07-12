@@ -18,9 +18,20 @@ export function SearchRestaurant({ restaurants }: ISearchProps) {
   const [entry, setEntry] = useState('')
   const router = useRouter()
 
+  //   if (!restaurants.length) return null
+
+  const filteredRestaurants =
+    entry.length >= 3
+      ? restaurants.filter(
+          (restaurant) =>
+            restaurant.tags.some((tag) => tag.includes(entry.toLowerCase())) ||
+            restaurant.name.toLowerCase().includes(entry.toLowerCase())
+        )
+      : []
+
   return (
     <>
-      <Command className="rounded-lg border shadow-md">
+      <Command className="rounded-lg border shadow-md" shouldFilter={false}>
         <CommandInput
           placeholder="Type a command or search..."
           value={entry}
@@ -28,7 +39,7 @@ export function SearchRestaurant({ restaurants }: ISearchProps) {
         />
 
         <CommandList>
-          {restaurants.map((restaurant) => (
+          {filteredRestaurants.map((restaurant) => (
             <CommandItem key={`${restaurant.id}`}>
               <span
                 onClick={() =>
