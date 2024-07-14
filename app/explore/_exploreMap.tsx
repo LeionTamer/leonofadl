@@ -12,19 +12,10 @@ import BaseMap from '@/components/deckgl/basemap'
 import RestaurantSection from '../restaurant/components/restaurantSection'
 import { Dialog, DialogClose, DialogContent } from '@/components/ui/dialog'
 import { ratingColors } from '@/helpers/colorHelper'
+import { restaurantSVG } from '@/components/svg/50px/restaurant'
 
 type ExploreMapPropsType = {
   restaurants: Restaurant[]
-}
-
-function createSVGIcon(rating: Rating) {
-  return `
-<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="13" stroke="orange" stroke-width="3" fill="${ratingColors(
-        rating
-      )}" />
-</svg> 
-    `
 }
 
 function svgToDataURL(svg: string) {
@@ -39,6 +30,7 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
     address: restaurant.address,
     coordinates: [restaurant.longtitude, restaurant.latitude],
     rating: restaurant.rating,
+    venue: restaurant.venueType,
   }))
 
   const { state, dispatch } = useDeckStateContext()
@@ -48,7 +40,7 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
     data: iconData,
     getColor: (d) => [Math.sqrt(d.exits), 140, 0],
     getIcon: (d, { index }) => ({
-      url: svgToDataURL(createSVGIcon(d.rating as Rating)),
+      url: svgToDataURL(restaurantSVG(d.venue)),
       width: 24,
       height: 24,
     }),
