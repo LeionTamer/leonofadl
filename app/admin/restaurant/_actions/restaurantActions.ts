@@ -5,7 +5,7 @@ import { RestaurantType, restaurantSchema } from '../_types/restaurantTypes'
 import { revalidatePath } from 'next/cache'
 
 export async function getRestaurants() {
-  return await db.restaurant.findMany()
+  return await db.restaurant.findMany({ orderBy: { createdAt: 'desc' } })
 }
 
 export async function getResturantById(id: string) {

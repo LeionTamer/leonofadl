@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Rating, VenueStatus } from '@prisma/client'
+import { restaurantVenueType } from '../_types/restaurantOptionTypes'
 
 export function RestaurantForm({
   restaurant,
@@ -141,6 +142,35 @@ export function RestaurantForm({
                           {entry}
                         </SelectItem>
                       ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="venueType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Venue Type</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue {...field} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {restaurantVenueType
+                        .filter((entry) => entry != '')
+                        .map((entry) => (
+                          <SelectItem key={entry} value={entry}>
+                            {entry}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                 </FormControl>
