@@ -1,6 +1,7 @@
 import db from '@/lib/prisma'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
+import { bodyHeightStyle, HEADER_HEIGHT } from '@/helpers/consts'
 
 export default async function Home() {
   const restaurants = await db.restaurant.findMany({
@@ -16,7 +17,10 @@ export default async function Home() {
   })
 
   return (
-    <main className="min-h-screen flex-col items-center justify-between bg-[#ffc971]">
+    <main
+      className="min-h-full flex-col items-center justify-between bg-[#ffc971]"
+      style={{ minHeight: bodyHeightStyle }}
+    >
       <div className="mx-auto flex h-72 max-w-7xl flex-col items-center justify-center text-center text-4xl md:text-5xl">
         {"Elevate Your Eating Experience with Leon's Digital Twin!"}
       </div>

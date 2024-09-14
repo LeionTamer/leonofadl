@@ -11,7 +11,6 @@ import BaseMap from '@/components/deckgl/basemap'
 
 import RestaurantSection from '../restaurant/components/restaurantSection'
 import { Dialog, DialogClose, DialogContent } from '@/components/ui/dialog'
-import { ratingColors } from '@/helpers/colorHelper'
 import { restaurantSVG } from '@/components/svg/50px/restaurant'
 
 type ExploreMapPropsType = {
@@ -69,7 +68,7 @@ function ExploreMap({ restaurants }: ExploreMapPropsType) {
 
   return (
     <>
-      <BaseMap height="100vh" layers={[layer]} />
+      <BaseMap layers={[layer]} />
       <Dialog open={!!selected} onOpenChange={() => setSelected(undefined)}>
         <DialogClose onClick={() => setSelected(undefined)} />
         <DialogContent onInteractOutside={() => setSelected(undefined)}>

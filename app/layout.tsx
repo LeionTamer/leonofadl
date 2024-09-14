@@ -4,6 +4,7 @@ import './globals.css'
 import './globalIcons.css'
 import AppProviders from './_providers'
 import Navbar from './_navbar'
+import { HEADER_HEIGHT } from '@/helpers/consts'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AppProviders>
-        <body className={inter.className}>
+        <body
+          className={`${inter.className} grid`}
+          style={{ gridTemplateRows: `${HEADER_HEIGHT} 1fr` }}
+        >
           <Navbar />
           {children}
         </body>

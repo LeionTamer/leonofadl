@@ -3,6 +3,7 @@
 import { FC } from 'react'
 import { DeckGL, TileLayer, BitmapLayer, Position, Layer } from 'deck.gl/typed'
 import { DeckViewStateType, useDeckStateContext } from './_deckcontext'
+import { bodyHeightStyle } from '@/helpers/consts'
 
 interface IBaseMapProps {
   height?: string
@@ -19,7 +20,7 @@ const INITIAL_VIEW_STATE = {
 }
 
 const BaseMap: FC<IBaseMapProps> = ({
-  height = '500px',
+  height = bodyHeightStyle,
   width = '100%',
   layers = [],
 }) => {
@@ -54,7 +55,6 @@ const BaseMap: FC<IBaseMapProps> = ({
       controller={true}
       style={{
         position: 'relative',
-        minHeight: '150px',
       }}
       height={height}
       width={width}

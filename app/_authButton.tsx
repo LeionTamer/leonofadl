@@ -7,7 +7,11 @@ export const AuthButton = () => {
   const { data: session, status } = useSession()
 
   if (status === 'authenticated') {
-    return <Button onClick={() => signOut()}>Sign Out</Button>
+    return (
+      <Button className="self-center" onClick={() => signOut()}>
+        Sign Out
+      </Button>
+    )
   }
 
   return null

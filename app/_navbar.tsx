@@ -1,12 +1,16 @@
 import { Button } from '@/components/ui/button'
 import AuthButton from './_authButton'
 import Link from 'next/link'
+import { HEADER_HEIGHT } from '@/helpers/consts'
 
 const Navbar = () => {
   return (
-    <nav className="bg-[#ffc971] p-2">
+    <nav
+      className="content-evenly bg-[#ffc971]"
+      style={{ height: HEADER_HEIGHT }}
+    >
       <div className="mx-auto flex max-w-7xl justify-between">
-        <div className="self-center p-2">
+        <div className="self-center">
           <Link href="/" legacyBehavior passHref>
             Home
           </Link>
