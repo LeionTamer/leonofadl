@@ -6,7 +6,7 @@ import { HEADER_HEIGHT } from '@/helpers/consts'
 const Navbar = () => {
   return (
     <nav
-      className="content-evenly bg-[#ffc971]"
+      className="content-evenly bg-[#ffc971] px-2"
       style={{ height: HEADER_HEIGHT }}
     >
       <div className="mx-auto flex max-w-7xl justify-between">
