@@ -6,12 +6,12 @@ import {
 } from '@/components/deckgl/_deckcontext'
 import { useEffect, useState } from 'react'
 import { IconLayer } from 'deck.gl/typed'
-import { Rating, Restaurant } from '@prisma/client'
-import BaseMap from '@/components/deckgl/basemap'
+import { Restaurant } from '@prisma/client'
 
 import RestaurantSection from '../restaurant/components/restaurantSection'
 import { Dialog, DialogClose, DialogContent } from '@/components/ui/dialog'
 import { restaurantSVG } from '@/components/svg/50px/restaurant'
+import BaseMap from '@/components/deckgl/baseMapV2'
 
 type ExploreMapPropsType = {
   restaurants: Restaurant[]
