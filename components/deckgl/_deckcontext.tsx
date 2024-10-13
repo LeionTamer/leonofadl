@@ -1,5 +1,6 @@
 import { PlaceData } from '@googlemaps/google-maps-services-js'
 import { Feature, GeoJsonProperties, MultiPoint } from 'geojson'
+import { FlyToInterpolator } from 'deck.gl/typed'
 import {
   Dispatch,
   ReactNode,
@@ -15,12 +16,15 @@ export type DeckViewStateType = {
   pitch: number
   bearing: number
   minZoom: number
+  transitionInterpolator: FlyToInterpolator
+  transitionDuration: number | 'auto'
 }
 
 export type DeckStateType = {
   viewState: DeckViewStateType
   googlePlaceDetails?: Partial<PlaceData>
   featurePoints?: Feature<MultiPoint, GeoJsonProperties>
+  center?: [number, number]
 }
 
 export const initializeState: DeckStateType = {
@@ -31,6 +35,8 @@ export const initializeState: DeckStateType = {
     pitch: 0,
     bearing: 0,
     minZoom: 10,
+    transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
+    transitionDuration: 'auto',
   } as DeckViewStateType,
 }
 

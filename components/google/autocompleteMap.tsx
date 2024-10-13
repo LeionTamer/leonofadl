@@ -4,9 +4,9 @@ import {
   DeckContextProvider,
   useDeckStateContext,
 } from '@/components/deckgl/_deckcontext'
-import BaseMap from '@/components/deckgl/basemap'
+import BaseMap from '@/components/deckgl/baseMapV2'
 import GoogleAutocomplete from '@/components/google/autocomplete'
-import { GeoJsonLayer, IconLayer } from 'deck.gl/typed'
+import { IconLayer } from 'deck.gl/typed'
 import { ReactNode, useEffect, useState } from 'react'
 
 function createSVGIcon(idx: number) {
@@ -29,7 +29,7 @@ const SearchAndMap = () => {
       }
   >(undefined)
 
-  const { state } = useDeckStateContext()
+  const { state, dispatch } = useDeckStateContext()
 
   const pinLayer = new IconLayer({
     id: 'icon-layer',
@@ -45,22 +45,6 @@ const SearchAndMap = () => {
     getPosition: (d) => d.coordinates,
     getSize: (d) => 5,
     getColor: (d) => [Math.sqrt(d.exits), 140, 0],
-  })
-
-  const geoLayer = new GeoJsonLayer({
-    id: 'geojson-layer',
-    data: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart.geo.json',
-    pickable: true,
-    stroked: false,
-    filled: true,
-    extruded: true,
-    pointType: 'circle',
-    lineWidthScale: 20,
-    lineWidthMinPixels: 2,
-    getFillColor: [160, 160, 180, 200],
-    getPointRadius: 100,
-    getLineWidth: 1,
-    getElevation: 30,
   })
 
   useEffect(() => {
@@ -82,7 +66,7 @@ const SearchAndMap = () => {
         <GoogleAutocomplete />
       </div>
       <div className="mt-5">
-        <BaseMap layers={[geoLayer, pinLayer]} height="300px" />
+        <BaseMap layers={[pinLayer]} height="300px" />
       </div>
     </>
   )

@@ -11,14 +11,6 @@ interface IBaseMapProps {
   layers?: Layer[]
 }
 
-const INITIAL_VIEW_STATE = {
-  longitude: -122.41669,
-  latitude: 37.7853,
-  zoom: 13,
-  pitch: 0,
-  bearing: 0,
-}
-
 const BaseMap: FC<IBaseMapProps> = ({
   height = bodyHeightStyle,
   width = '100%',

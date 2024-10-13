@@ -15,6 +15,7 @@ import {
 } from '@googlemaps/google-maps-services-js'
 import { DeckViewStateType, useDeckStateContext } from '../deckgl/_deckcontext'
 import { getPlaceDetails, placeAutoComplete } from './placeAction'
+import { FlyToInterpolator } from 'deck.gl/typed'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL || ''
 
@@ -57,12 +58,15 @@ const GoogleAutocomplete: FC<IGoogleAutocompleteProps> = ({
             zoom: 14,
             longtitude: data.geometry?.location.lng,
             latitude: data.geometry?.location.lat,
+            transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
+            transitionDuration: 'auto',
           } as DeckViewStateType,
-        })
-
-        dispatch({
           googlePlaceDetails: data,
         })
+
+        // dispatch({
+        //   googlePlaceDetails: data,
+        // })
       })
     })
   }
